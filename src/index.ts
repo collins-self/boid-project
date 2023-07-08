@@ -18,8 +18,9 @@ const context = canvas.getContext("webgpu");
 context.configure({
     device,
     format: navigator.gpu.getPreferredCanvasFormat(),
-    alphaMode: 'opaque',
+    alphaMode: "opaque",
 });
 
-const texture = context.getCurrentTexture();
-const textureView = texture.createView();
+const encoder = device.createCommandEncoder();
+
+
