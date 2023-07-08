@@ -3,6 +3,6 @@
     "version": "0.0.0",
     "private": true,
     "dependencies": {
-      "@webgpu/types": "^0.1.21"
+        "pixi.js": "^7.2.4"
     }
 }

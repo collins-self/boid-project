@@ -1,26 +1,35 @@
-import "./styles.css"
+import * as PIXI from 'pixi.js';
 
-const canvas = document.querySelector('canvas');
+// APP init
 
-// initialize GPU adapter needed for device access
-const adapter = await navigator.gpu.requestAdapter();
-if (!adapter) {
-    throw new Error("WebGPU was not able to load in your browser.");
+const APP_WIDTH = 400;
+const APP_HEIGHT = 300;
+const ANTIALIAS = true;
+const BACKGROUND = 0x85B09A;
+
+let appSettings = {
+    width: APP_WIDTH,
+    height: APP_HEIGHT,
+    antialias: ANTIALIAS,
+    backgroundColor: BACKGROUND,
 }
 
-// device used for interfacing with the GPU
-const device = await adapter.requestDevice();
-const queue = device.queue;
+let app = new PIXI.Application<HTMLCanvasElement>(appSettings);
+document.body.appendChild(app.view);
 
-// configure the Canvas
-// todo:  come back and learn more about the config options
-const context = canvas.getContext("webgpu");
-context.configure({
-    device,
-    format: navigator.gpu.getPreferredCanvasFormat(),
-    alphaMode: "opaque",
-});
+// Creature Sprite
+let creatureGraphics = new PIXI.Graphics();
 
-const encoder = device.createCommandEncoder();
+let triangleWidth = 100,
+    triangleHeight = triangleWidth,
+    triangleHalfway = triangleWidth / 2;
 
+creatureGraphics.beginFill(0x255C99, 1);
+creatureGraphics.lineStyle(0, 0x255C99, 1);
+creatureGraphics.moveTo(triangleWidth, 0);
+creatureGraphics.lineTo(triangleHalfway, triangleHeight);
+creatureGraphics.lineTo(0, 0);
+creatureGraphics.lineTo(triangleHalfway, 0);
+creatureGraphics.endFill();
 
+app.stage.addChild(creatureGraphics);
